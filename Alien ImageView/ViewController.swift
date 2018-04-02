@@ -9,10 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var count = 1; //사진의 초기 인덱스 값
-    var direction = 1; // direction이 1이면 증가 0이면 감소 구분
+    var count = 1; // 이미지 초기 인덱스 값
+    var direction = true; // direction이 true이면 증가, false이면 감소 구분
     @IBOutlet weak var myImageView: UIImageView!
-    @IBOutlet weak var index: UILabel!
+    @IBOutlet weak var index: UILabel! // 이미지 인덱스 출역
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,22 +23,23 @@ class ViewController: UIViewController {
     }
 
     @IBAction func imageUpdate(_ sender: Any) {
-        //count가 5이면 감소시키기 위해 direction을 0으로 변경
-        if count == 5{
-            direction = 0
+        //count가 5이면 감소시키기 위해 direction을 false로 변경
+        //count가 1이면 증가시키기 위해 direction을 true로 변경
+        if count == 5 {
+            direction = false
+        } else if count == 1 {
+            direction = true
         }
-        //count가 1이면 증가시키기 위해 direction을 1으로 변경
-        else if count == 1{
-            direction = 1
-        }
-        //direction이 1이면 count를 1씩 증가
-        if direction == 1{
-            count += 1;}
+        
+        //direction이 1이면 count를 1씩 증가,
         //direction이 0이면 count를 1씩 감소
-        else if direction == 0{
+        if direction == true {
+            count += 1;
+        } else if direction == false {
             count = count - 1
         }
-
+        
+        // 이미지 변경
         myImageView.image = UIImage(named: "frame\(count).png")
         index.text = String(count)
     }
